@@ -1,8 +1,5 @@
-from tabnanny import verbose
-from turtle import title
-from unicodedata import category
 from django.db import models
-from .models import User
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=255, db_index=True)
@@ -21,6 +18,7 @@ class Product(models.Model):
     author = models.CharField(max_length=255, default='admin')
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/')
+    slug = models.SlugField(max_length=255)
     description = models.SlugField(max_length=255)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     in_stock = models.BooleanField(default=True)
@@ -30,7 +28,11 @@ class Product(models.Model):
 
 class Meta:
     verbose_name_plural = 'Products'
-    ordering = ('-created')
+    ordering = ('-created',)
+
+def __str__(self):
+    return self.title
+
 
 
 
